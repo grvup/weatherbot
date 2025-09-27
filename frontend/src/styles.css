@@ -1,0 +1,277 @@
+/* --- Global Variables and Reset --- */
+:root {
+    --color-primary: #1e88e5;
+    --color-secondary: #4caf50;
+    --color-danger: #e53935;
+    --color-background: #f0f2f5;
+    --color-card-bg: #ffffff;
+    --color-text-dark: #212121;
+    --color-text-light: #757575;
+    --shadow-subtle: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* === Multi-Layered Background === */
+body {
+    position: relative;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--color-text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Removed !important so pseudo elements show */
+    background: none;
+}
+
+/* Layer 1: Moving Cloud/Weather Base */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 200%; /* wider for smooth scroll */
+    height: 100%;
+
+    background: url("/43289.jpg") repeat-x;
+    background-size: contain;
+    background-position: center;
+
+    animation: clouds-move 40s linear infinite;
+    z-index: -2;
+    opacity: 0.8;
+}
+
+@keyframes clouds-move {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.chat-container {
+    max-width: 800px;
+    width: 100%;
+    height: 95vh;
+    margin: 20px auto;
+    z-index: 10;
+
+    /* -------- Glass look -------- */
+    /* translucent gradient with very subtle blue tint */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+
+    /* heavy blur to make the background image look frosted */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%); /* Safari support */
+
+    /* soft frosted border with faint inner glow */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),            /* outer depth shadow */
+        inset 0 0 80px rgba(255, 255, 255, 0.06);  /* inner light haze */
+
+    /* light top-edge highlight to simulate glass reflection */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* optional subtle white “sheen” overlay at the top */
+.chat-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.25),
+        rgba(255, 255, 255, 0)
+    );
+    pointer-events: none;
+}
+
+
+/* --- Header --- */
+.chat-header {
+    background: linear-gradient(90deg, #4169E1, #1E3AA8);
+
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: var(--shadow-subtle);
+}
+.chat-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+.subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.9);
+}
+
+/* --- Output Section --- */
+.output-section {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- Message Bubbles --- */
+.message-bubble {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 20px;
+    font-size: 1rem;
+    word-wrap: break-word;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.bot-message {
+    align-self: flex-start;
+    background-color: #e3f2fd;
+    color: var(--color-text-dark);
+    border-bottom-left-radius: 4px;
+}
+.user-message {
+    align-self: flex-end;
+    background-color: var(--color-secondary);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+.response-text.placeholder {
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+/* --- Status Message --- */
+.status-message {
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+.status-message.ready {
+    background-color: #dcedc8;
+    color: #33691e;
+}
+.status-message.recording {
+    background-color: #ffcdd2;
+    color: var(--color-danger);
+}
+.status-message.loading {
+    background-color: #fff9c4;
+    color: #fbc02d;
+}
+
+/* --- Input Section --- */
+.input-section {
+    border-top: 1px solid #e0e0e0;
+    padding: 15px;
+    background-color: var(--color-card-bg);
+}
+.input-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.text-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #bdbdbd;
+    border-radius: 24px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+.text-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(30,136,229,0.2);
+    outline: none;
+}
+.voice-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+/* --- Buttons --- */
+.btn {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-icon .icon {
+    font-size: 1.2rem;
+}
+.record-btn {
+    background-color: var(--color-primary);
+    color: white;
+}
+.record-btn:hover:not(:disabled) {
+    background-color: #1565c0;
+}
+.stop-btn {
+    background-color: var(--color-danger);
+    color: white;
+}
+.stop-btn:hover:not(:disabled) {
+    background-color: #c62828;
+}
+.btn:disabled {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+}
+
+/* --- Footer --- */
+.app-footer {
+    padding: 10px;
+    text-align: center;
+    background: rgba(224,224,224,0.8);
+    backdrop-filter: blur(6px);
+    color: var(--color-text-light);
+    font-size: 0.8rem;
+    width: 100%;
+    z-index: 10;
+}
+
+.hidden { display: none !important; }
+
+.hidden-title {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 650px) {
+    .chat-container {
+        border-radius: 0;
+        height: 100vh;
+        margin: 0;
+        width: 100%;
+    }
+}

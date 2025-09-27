@@ -1,0 +1,55 @@
+﻿# -----------------
+# 1. Environment & Dependencies
+# -----------------
+# Python virtual environment
+/venv/
+/env/
+
+# Node.js modules (Frontend dependencies)
+/frontend/node_modules/
+
+# -----------------
+# 2. Python Specific
+# -----------------
+# Byte-compiled files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# -----------------
+# 3. Build & Artifacts
+# -----------------
+# Frontend build output
+/frontend/dist/
+/frontend/build/
+
+# -----------------
+# 4. Data & Sensitive Files
+# -----------------
+# Environment variables (contains API keys)
+.env
+
+# Uploaded files and temporary data
+/uploads/
+
+# Log files and databases
+*.log
+*.sqlite3
+
+# -----------------
+# 5. Tools & IDEs
+# -----------------
+.vscode/
+.idea/
+
+# -----------------
+# 6. OS Specific
+# -----------------
+.DS_Store
+Thumbs.db
+
+# -----------------
+# 7. Jupyter
+# -----------------
+.ipynb_checkpoints

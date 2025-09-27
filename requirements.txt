@@ -1,0 +1,19 @@
+# Web Framework & Server
+fastapi
+uvicorn[standard]  # Uvicorn is required to run the FastAPI app
+
+# Azure Cognitive Services (Speech & Translation)
+azure-cognitiveservices-speech
+requests           # Used for Azure Translator API (and OpenWeather)
+
+# LLM / Chatbot
+google-generativeai
+
+# Utilities
+python-dotenv      # For loading variables from .env
+
+spacy[transformers]
+python-dateutil 
+rapidfuzz 
+dateparser
+python-dotenv

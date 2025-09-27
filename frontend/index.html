@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Assistant</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+
+    <main class="chat-container">
+        
+        <header class="chat-header">
+            <h1>☀️ Weather Assistant</h1>
+            <p class="subtitle">AI-Powered Weather Chat Bot</p>
+        </header>
+
+        <section class="card output-section">
+            <h2 class="hidden-title">AI Response</h2>
+            
+            <div class="message-bubble user-message hidden" id="transcribedText">
+                <p></p>
+            </div>
+            
+            <div class="message-bubble bot-message" id="aiSuggestion">
+                <p class="response-text placeholder">
+                    Your tailored weather advice will appear here...
+                </p>
+            </div>
+
+            <div id="weatherInfo" class="hidden"></div>
+        </section>
+
+        <div id="status" class="status-message ready">🎙 Ready</div>
+
+        <section class="input-section">
+            <h2 class="hidden-title">Query Input</h2>
+            
+            <div class="input-controls">
+                <input 
+                    type="text" 
+                    id="queryInput" 
+                    placeholder="Type a city name or question..." 
+                    class="text-input"
+                    aria-label="Text Query Input"
+                />
+                <div class="voice-buttons">
+                    <button id="recordBtn" class="btn btn-icon record-btn" aria-label="Start Recording">
+                        <span class="icon">🎤</span>
+                    </button>
+                    <button id="stopBtn" class="btn btn-icon stop-btn" disabled aria-label="Stop Recording">
+                        <span class="icon">⏹</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <small>&copy; 2025 Weather Assistant</small>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
