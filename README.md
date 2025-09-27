@@ -117,3 +117,19 @@ npm run dev
 ```
 
 The frontend application will typically open in your browser at a local address like `http://localhost:5173`. Open this URL to interact with the Weather Assistant.
+
+## ⚡ Tech Stack
+
+| Layer        | Technology                         |
+| ------------ | ---------------------------------- |
+| **Backend**  | FastAPI, Uvicorn                   |
+| **AI/LLM**   | Google Generative AI (Gemini)      |
+| **Speech**   | Azure Cognitive Services (Speech)  |
+| **NLP/NLU**  | spaCy, rapidfuzz, dateparser       |
+| **Weather**  | OpenWeather API, requests          |
+| **Audio**    | FFmpeg                             |
+| **Frontend** | TypeScript / JavaScript, HTML, CSS |
+| **Utils**    | python-dotenv, python-dateutil     |
+| **Tooling**  | Node.js (npm), Python venv         |
+
+---
