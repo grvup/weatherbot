@@ -85,6 +85,15 @@ cd frontend
 npm install
 ```
 
+### 7. FFmpeg Setup(required)
+
+This project requires **FFmpeg** to work properly. Follow these steps to install and set it up:
+
+1. Download the latest [`ffmpeg-8.0-essentials_build.zip`](https://www.gyan.dev/ffmpeg/builds/) from the official FFmpeg website.
+2. Extract the downloaded ZIP file.
+3. Inside the extracted folder, locate the `bin` directory (it contains `ffmpeg.exe`, `ffplay.exe`, etc.).
+4. Add the **full path** of this `bin` folder to your system **PATH** environment variable.
+
 ## ▶️ Running the Application
 
 ### 1. Start the FastAPI Backend
