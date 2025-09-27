@@ -5,7 +5,7 @@ This project implements an **AI-powered weather assistant** that leverages a Pyt
 ## 🚀 Features
 
 - **Voice Input:** Transcribes user speech using external speech services (e.g., Azure).
-- **Intelligent Routing:** Uses NLP (spaCy) to identify weather-related intents, locations, and dates.
+- **Intelligent Routing:** Uses NLP (spaCy transformer) to identify weather-related intents, locations, and dates.
 - **LLM Integration:** Provides contextual, human-like advice using Google Gemini based on real-time weather data.
 - **Backend:** Built with **FastAPI** for high performance and asynchronous operation.
 - **In-Session History:** Maintains chat history using client-side in-memory storage, resetting on refresh.
