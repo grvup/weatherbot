@@ -4,23 +4,23 @@ This project implements an **AI-powered weather assistant** that leverages a Pyt
 
 ## 🚀 Features
 
-* **Voice Input:** Transcribes user speech using external speech services (e.g., Azure).
-* **Intelligent Routing:** Uses NLP (spaCy) to identify weather-related intents, locations, and dates.
-* **LLM Integration:** Provides contextual, human-like advice using Google Gemini based on real-time weather data.
-* **Backend:** Built with **FastAPI** for high performance and asynchronous operation.
-* **In-Session History:** Maintains chat history using client-side in-memory storage, resetting on refresh.
+- **Voice Input:** Transcribes user speech using external speech services (e.g., Azure).
+- **Intelligent Routing:** Uses NLP (spaCy) to identify weather-related intents, locations, and dates.
+- **LLM Integration:** Provides contextual, human-like advice using Google Gemini based on real-time weather data.
+- **Backend:** Built with **FastAPI** for high performance and asynchronous operation.
+- **In-Session History:** Maintains chat history using client-side in-memory storage, resetting on refresh.
 
 ## 📁 Project Structure
 
-| Directory/File | Description |
-| :--- | :--- |
-| `app/` | **FastAPI Backend:** Contains all Python logic (API endpoints, LLM integration, NLP, weather fetching). |
-| `frontend/` | **Client-side UI:** Contains the HTML, CSS, and TypeScript logic for the web interface. |
-| `uploads/` | Directory for temporarily storing audio files uploaded via the API. |
-| `venv/` | Isolated Python virtual environment (ignored by Git). |
-| `.env` | **Sensitive:** Stores all API keys and environment variables (ignored by `.gitignore`). |
-| `requirements.txt` | Lists all required Python packages. |
-| `ffmpeg-8.0-essentials_build/` | Contains the **FFmpeg** binaries, which are required by the backend for audio processing. |
+| Directory/File                 | Description                                                                                             |
+| :----------------------------- | :------------------------------------------------------------------------------------------------------ |
+| `app/`                         | **FastAPI Backend:** Contains all Python logic (API endpoints, LLM integration, NLP, weather fetching). |
+| `frontend/`                    | **Client-side UI:** Contains the HTML, CSS, and TypeScript logic for the web interface.                 |
+| `uploads/`                     | Directory for temporarily storing audio files uploaded via the API.                                     |
+| `venv/`                        | Isolated Python virtual environment (ignored by Git).                                                   |
+| `.env`                         | **Sensitive:** Stores all API keys and environment variables (ignored by `.gitignore`).                 |
+| `requirements.txt`             | Lists all required Python packages.                                                                     |
+| `ffmpeg-8.0-essentials_build/` | Contains the **FFmpeg** binaries, which are required by the backend for audio processing.               |
 
 ## ⚙️ Setup and Installation
 
@@ -57,7 +57,7 @@ pip install -r requirements.txt
 The spaCy library requires a language model to function:
 
 ```bash
-python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_trf
 ```
 
 ### 5. Configure Environment Variables
@@ -72,6 +72,8 @@ OPENWEATHER_API_KEY="YOUR_OPENWEATHER_MAP_API_KEY_HERE"
 # Azure Speech/Translation (if used in app/ logic)
 AZURE_SPEECH_KEY="YOUR_AZURE_KEY"
 AZURE_SPEECH_REGION="YOUR_AZURE_REGION"
+AZURE_TRANSLATOR_KEY="YOUR_AZURE_KEY"
+AZURE_TRANSLATOR_REGION="YOUR_AZURE_REGION"
 ```
 
 ### 6. Set up Frontend
