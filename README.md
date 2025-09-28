@@ -44,7 +44,7 @@ Create and activate a virtual environment (venv):
 python -m venv venv
 
 # Activate (Windows PowerShell)
-.env\Scriptsctivate
+.\venv\Scripts\Activate
 # Activate (Linux/macOS or Git Bash)
 source venv/bin/activate
 
