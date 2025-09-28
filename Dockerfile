@@ -60,7 +60,6 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/docs || exit 1
 
 # Start command
-COPY .env ./
 ENV DEBUG=False
 ENV LOG_LEVEL=INFO
 ENV FFMPEG_PATH=/usr/bin/ffmpeg
