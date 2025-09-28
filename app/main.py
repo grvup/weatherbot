@@ -7,7 +7,8 @@ import logging
 from datetime import datetime # Import datetime for generating timestamps
 
 from fastapi import FastAPI, BackgroundTasks, UploadFile, File, HTTPException, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse  # ADD FileResponse
+from fastapi.staticfiles import StaticFiles  # ADD StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from .weather_agent import travel_weather_agent, nlu_parser_travel, fetch_weather
@@ -33,11 +34,14 @@ logger = logging.getLogger("weatherbot")
 
 app = FastAPI()
 
-# CORS (frontend runs on :8080 during dev)
+# CORS - Updated for production deployment
 origins = [
     "http://127.0.0.1:8080",
-    "http://localhost:8080",
+    "http://localhost:8080", 
     "http://localhost:5173",
+    "http://localhost:8000",  # ADD: For production when frontend is served by FastAPI
+    "http://127.0.0.1:8000",  # ADD: For production
+    "*"  # ADD: Allow all origins in production (you can restrict this later)
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -206,3 +210,52 @@ def get_chatbot_response(trace_id: str):
     except Exception as e:
         logger.exception(f"Chatbot generation failed for trace_id={trace_id}")
         raise HTTPException(status_code=500, detail=f"chatbot_failed: {e}")
+
+
+# --- 4. ADD: STATIC FILE SERVING FOR FRONTEND ---
+
+# Check if frontend build directory exists
+static_dir = "../frontend/dist"
+if os.path.exists(static_dir):
+    # Mount static assets (CSS, JS, images)
+    app.mount("/assets", StaticFiles(directory=f"{static_dir}/assets"), name="assets")
+    
+    # Serve other static files (favicon, etc.)
+    @app.get("/favicon.ico")
+    async def favicon():
+        favicon_path = f"{static_dir}/favicon.ico"
+        if os.path.exists(favicon_path):
+            return FileResponse(favicon_path)
+        raise HTTPException(status_code=404)
+    
+    # Catch-all route for SPA (Single Page Application)
+    # This MUST be the last route defined
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        # Don't serve frontend for API routes, docs, or health check
+        if full_path.startswith(("api/", "docs", "redoc", "openapi.json", "health")):
+            raise HTTPException(status_code=404, detail="API route not found")
+        
+        # Check if specific file exists
+        file_path = f"{static_dir}/{full_path}"
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        
+        # Fallback to index.html for SPA routing (React Router, Vue Router, etc.)
+        index_path = f"{static_dir}/index.html"
+        if os.path.exists(index_path):
+            return FileResponse(index_path)
+        
+        raise HTTPException(status_code=404, detail="File not found")
+else:
+    logger.warning(f"Frontend build directory '{static_dir}' not found. Static file serving disabled.")
+    
+    # Optional: Add a route to indicate frontend is not available
+    @app.get("/")
+    async def root():
+        return JSONResponse({
+            "message": "Weather Assistant API",
+            "status": "running",
+            "frontend": "not_available",
+            "docs": "/docs"
+        })

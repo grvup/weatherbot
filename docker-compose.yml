@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  weather-assistant:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - LOG_LEVEL=INFO
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads
+      - ./app:/app/app  # For development hot-reload
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional: Add Redis for session management
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
